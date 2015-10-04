@@ -9,16 +9,16 @@ var Demo = React.createClass({
     userName: Joi.string().required().label('User Name'),
     password: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/).label('Password')
   },
-  getValidatorData: function getValidatorData() {
+  getValidatorData: function() {
     return this.state;
   },
-  getInitialState: function getInitialState() {
+  getInitialState: function() {
     return {
       userName: null,
       password: null
     };
   },
-  render: function render() {
+  render: function() {
     return (
         <form onSubmit={this.onSubmit}>
             <input 
@@ -70,7 +70,7 @@ var Demo = React.createClass({
             </span>
         );
   },
-  onChange: function onChange(field) {
+  onChange: function(field) {
     var _this = this;
 
     return function (event) {
