@@ -22,21 +22,23 @@ var Demo = React.createClass({
     return (
         <form onSubmit={this.onSubmit}>
             <input 
+                name="userName"
                 className="form-control"
                 type="text" 
                 ref="userName" 
                 placeholder="Enter User Name" 
                 value={this.state.userName}
-                onChange={this.onChange('userName')}
+                onChange={this.onChange}
                 onBlur={this.props.handleValidation('userName')}/>
             {this.renderHelpText(this.props.getValidationMessages('userName'))}
             <input 
+                name="password"
                 className="form-control"
                 type="text" 
                 ref="password" 
                 placeholder="Enter Password" 
                 value={this.state.password}
-                onChange={this.onChange('password')}
+                onChange={this.onChange.bind(this)}
                 onBlur={this.props.handleValidation('password')}/>
             {this.renderHelpText(this.props.getValidationMessages('password'))}
             <button className='btn btn-success' type='submit'>Submit</button>
@@ -70,15 +72,11 @@ var Demo = React.createClass({
             </span>
         );
   },
-  onChange: function(field) {
-    var _this = this;
-
-    return function (event) {
-      var state = {};
-      state[field] = event.target.value;
-      _this.setState(state);
-    };
-  }
+  onChange: function(event) {
+    var state = {};
+    state[event.target.name] = event.target.value;
+    this.setState(state);
+  }    
 });
 
 var ValidationDemo = ReactValidationMixin(JoiValidationStrategy)(Demo);;
