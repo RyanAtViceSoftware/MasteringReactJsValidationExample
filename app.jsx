@@ -4,79 +4,117 @@ var Joi = require('joi');
 var JoiValidationStrategy = require('joi-validation-strategy');
 var ReactValidationMixin = require('react-validation-mixin');
 
+var ValidatedInput = React.createClass({
+    renderHelpText: function(message) {
+        return (
+            <span className='help-block'>
+                {message}
+            </span>
+        );
+    },
+    render: function() {
+        var error = this.props.getValidationMessages(this.props.name);
+        var formClass = "form-group";
+
+        if (error.length > 0) {
+            formClass = formClass + " has-error";
+        }
+
+        return (
+            <div className={formClass}>
+                <label className="control-label" for={this.props.name}>
+                    {this.props.label}
+                </label>
+                <input className="form-control" {...this.props}/>
+                {this.renderHelpText(error)}
+            </div>
+        );
+    }
+});
+
 var Demo = React.createClass({
   validatorTypes: {
     userName: Joi.string().required().label('User Name'),
-    password: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/).label('Password')
+    password: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/)
+        .label('Password')
   },
   getValidatorData: function() {
     return this.state;
   },
   getInitialState: function() {
     return {
-      userName: null,
-      password: null
+      userName: "",
+      password: ""
     };
-  },
-  render: function() {
-    return (
-        <form onSubmit={this.onSubmit}>
-            <input 
-                name="userName"
-                className="form-control"
-                type="text" 
-                ref="userName" 
-                placeholder="Enter User Name" 
-                value={this.state.userName}
-                onChange={this.onChange}
-                onBlur={this.props.handleValidation('userName')}/>
-            {this.renderHelpText(this.props.getValidationMessages('userName'))}
-            <input 
-                name="password"
-                className="form-control"
-                type="text" 
-                ref="password" 
-                placeholder="Enter Password" 
-                value={this.state.password}
-                onChange={this.onChange.bind(this)}
-                onBlur={this.props.handleValidation('password')}/>
-            {this.renderHelpText(this.props.getValidationMessages('password'))}
-            <button className='btn btn-success' type='submit'>Submit</button>
-        </form>
-        ); 
   },
   onSubmit(event) {
     event.preventDefault();
+
+    var self = this;
+
+    // Handle field level validations
     var onValidate = function(error) {
-      if (error) {
-        //form has errors; do not submit
-        if (error.userName) {
-            alert(error.userName);
+
+        if (error) {
+            if (error.userName) {
+                alert(error.userName);
+            }
+
+            if (error.password) {
+                alert(error.password);
+            }
         }
 
-        if (error.password) {
-            alert(error.password);
+        // Handle form level validations
+        if (self.state.userName && self.state.password.indexOf(self.state.userName) > -1) {
+            alert("Password cannont contain the user name.");
+            return;
         }
-        
-      } else {
-        //no errors; submit form
-        alert('no error');
-      }
+
+        if (!error) {
+            alert("Account created!");
+        }
     };
+
     this.props.validate(onValidate);
-  },
-  renderHelpText: function(message) {
-    return (
-            <span className='help-block'>
-                {message}
-            </span>
-        );
   },
   onChange: function(event) {
     var state = {};
     state[event.target.name] = event.target.value;
     this.setState(state);
-  }    
+  },
+  render: function() {
+    return (
+        <div className="container">
+            <div className="row">
+                <form onSubmit={this.onSubmit.bind(this)}>
+                    <ValidatedInput 
+                        name="userName"
+                        type="text" 
+                        ref="userName" 
+                        placeholder="Enter User Name" 
+                        label="User Name"
+                        value={this.state.userName}
+                        onChange={this.onChange.bind(this)}
+                        onBlur={this.props.handleValidation('userName')}
+                        getValidationMessages={this.props.getValidationMessages}/>
+                    <ValidatedInput 
+                        name="password"
+                        className="form-control"
+                        type="text" 
+                        ref="password" 
+                        placeholder="Enter Password" 
+                        label="Password"
+                        value={this.state.password}
+                        onChange={this.onChange.bind(this)}
+                        onBlur={this.props.handleValidation('password')}
+                        getValidationMessages={this.props.getValidationMessages}/>
+                    <button className="btn btn-success" type="submit">Submit</button>
+                </form>
+        </div>
+        </div>
+        ); 
+  }
 });
 
 var ValidationDemo = ReactValidationMixin(JoiValidationStrategy)(Demo);;
