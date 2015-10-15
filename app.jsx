@@ -82,7 +82,7 @@ var Demo = React.createClass({
 
         if (self.state.userName 
             && userNameContainsPassword) {
-            alert("Password cannont contain the user name.");
+            alert("Password cannot contain the user name.");
             return;
         }
 
