@@ -1,8 +1,10 @@
 'use strict';
 var React = require('react');
 var Joi = require('joi');
-var JoiValidationStrategy = require('joi-validation-strategy');
-var ReactValidationMixin = require('react-validation-mixin');
+var JoiValidationStrategy 
+    = require('joi-validation-strategy');
+var ReactValidationMixin
+    = require('react-validation-mixin');
 
 var ValidatedInput = React.createClass({
     renderHelpText: function(message) {
@@ -13,7 +15,10 @@ var ValidatedInput = React.createClass({
         );
     },
     render: function() {
-        var error = this.props.getValidationMessages(this.props.name);
+        var error 
+            = this.props.getValidationMessages(
+                this.props.name);
+
         var formClass = "form-group";
 
         if (error.length > 0) {
@@ -22,10 +27,12 @@ var ValidatedInput = React.createClass({
 
         return (
             <div className={formClass}>
-                <label className="control-label" for={this.props.name}>
+                <label className="control-label" 
+                    for={this.props.name}>
                     {this.props.label}
                 </label>
-                <input className="form-control" {...this.props}/>
+                <input className="form-control" 
+                    {...this.props}/>
                 {this.renderHelpText(error)}
             </div>
         );
@@ -34,8 +41,10 @@ var ValidatedInput = React.createClass({
 
 var Demo = React.createClass({
   validatorTypes: {
-    userName: Joi.string().required().label('User Name'),
-    password: Joi.string().required().regex(/[a-zA-Z0-9]{3,30}/)
+    userName: Joi.string().required()
+        .label('User Name'),
+    password: Joi.string().required()
+        .regex(/[a-zA-Z0-9]{3,30}/)
         .label('Password')
   },
   getValidatorData: function() {
@@ -50,6 +59,7 @@ var Demo = React.createClass({
   onSubmit(event) {
     event.preventDefault();
 
+    // To allow accessing this in the scope of a callback
     var self = this;
 
     // Handle field level validations
@@ -66,7 +76,12 @@ var Demo = React.createClass({
         }
 
         // Handle form level validations
-        if (self.state.userName && self.state.password.indexOf(self.state.userName) > -1) {
+        var userNameContainsPassword 
+            = self.state.password.indexOf(
+                self.state.userName) > -1;
+
+        if (self.state.userName 
+            && userNameContainsPassword) {
             alert("Password cannont contain the user name.");
             return;
         }
@@ -80,44 +95,50 @@ var Demo = React.createClass({
   },
   onChange: function(event) {
     var state = {};
+
     state[event.target.name] = event.target.value;
+    
     this.setState(state);
   },
   render: function() {
     return (
         <div className="container">
-            <div className="row">
-                <form onSubmit={this.onSubmit.bind(this)}>
-                    <ValidatedInput 
-                        name="userName"
-                        type="text" 
-                        ref="userName" 
-                        placeholder="Enter User Name" 
-                        label="User Name"
-                        value={this.state.userName}
-                        onChange={this.onChange.bind(this)}
-                        onBlur={this.props.handleValidation('userName')}
-                        getValidationMessages={this.props.getValidationMessages}/>
-                    <ValidatedInput 
-                        name="password"
-                        className="form-control"
-                        type="text" 
-                        ref="password" 
-                        placeholder="Enter Password" 
-                        label="Password"
-                        value={this.state.password}
-                        onChange={this.onChange.bind(this)}
-                        onBlur={this.props.handleValidation('password')}
-                        getValidationMessages={this.props.getValidationMessages}/>
-                    <button className="btn btn-success" type="submit">Submit</button>
-                </form>
-        </div>
+            <form onSubmit={this.onSubmit.bind(this)}>
+                <ValidatedInput 
+                    name="userName"
+                    type="text" 
+                    ref="userName" 
+                    placeholder="Enter User Name" 
+                    label="User Name"
+                    value={this.state.userName}
+                    onChange={this.onChange.bind(this)}
+                    onBlur={this.props.handleValidation('userName')}
+                    getValidationMessages=
+                        {this.props.getValidationMessages}/>
+                <ValidatedInput 
+                    name="password"
+                    className="form-control"
+                    type="text" 
+                    ref="password" 
+                    placeholder="Enter Password" 
+                    label="Password"
+                    value={this.state.password}
+                    onChange={this.onChange.bind(this)}
+                    onBlur={this.props.handleValidation('password')}
+                    getValidationMessages=
+                        {this.props.getValidationMessages}/>
+                <button className="btn btn-success" type="submit">
+                    Submit
+                </button>
+            </form>
         </div>
         ); 
   }
 });
 
-var ValidationDemo = ReactValidationMixin(JoiValidationStrategy)(Demo);;
+// Decorate our component with validations support
+var ValidationDemo 
+    = ReactValidationMixin(JoiValidationStrategy)(Demo);
 
 React.render(
     <ValidationDemo/>,
