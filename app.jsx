@@ -1,10 +1,8 @@
 'use strict';
 var React = require('react');
 var Joi = require('joi');
-var JoiValidationStrategy 
-    = require('joi-validation-strategy');
-var ReactValidationMixin
-    = require('react-validation-mixin');
+var JoiValidationStrategy = require('joi-validation-strategy');
+var ReactValidationMixin = require('react-validation-mixin');
 
 var ValidatedInput = React.createClass({
     renderHelpText: function(message) {
@@ -27,12 +25,10 @@ var ValidatedInput = React.createClass({
 
         return (
             <div className={formClass}>
-                <label className="control-label" 
-                    for={this.props.name}>
+                <label className="control-label" for={this.props.name}>
                     {this.props.label}
                 </label>
-                <input className="form-control" 
-                    {...this.props}/>
+                <input className="form-control" {...this.props}/>
                 {this.renderHelpText(error)}
             </div>
         );
