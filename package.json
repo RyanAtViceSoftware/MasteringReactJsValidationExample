@@ -1,0 +1,30 @@
+{
+  "name": "mastering-react-validations",
+  "version": "1.0.0",
+  "description": "This code is sample code from the book Mastering ReactJs by Ryan Vice and Adam Horton and shows how to do field and form level validaitons using ReactJs with the React Validation Mixin.",
+  "main": "index.js",
+  "dependencies": {
+    "browserify": "^11.2.0",
+    "bootstrap": "^3.3.5",
+    "joi": "^6.8.1",
+    "react": "^0.13.3",
+    "joi-validation-strategy": "^0.2.1",
+    "react-validation-mixin": "^5.2.0",
+    "watchify": "^3.4.0",
+    "reactify": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanAtViceSoftware/MasteringReactJsValidationExample.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanAtViceSoftware/MasteringReactJsValidationExample/issues"
+  },
+  "homepage": "https://github.com/RyanAtViceSoftware/MasteringReactJsValidationExample#readme"
+}
