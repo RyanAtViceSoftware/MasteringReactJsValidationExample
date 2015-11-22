@@ -9,13 +9,9 @@
     "joi": "^6.8.1",
     "react": "^0.13.3",
     "joi-validation-strategy": "^0.2.1",
-    "react-validation-mixin": "^5.2.0",
-    "watchify": "^3.4.0",
-    "reactify": "^1.1.1"
+    "react-validation-mixin": "^5.2.0"
   },
   "devDependencies": {
-    "babel-core": "^5.8.34",
-    "babel-loader": "^5.4.0",
     "watchify": "^3.6.1"
   },
   "scripts": {
