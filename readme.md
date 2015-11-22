@@ -15,6 +15,7 @@ This code is sample code from the book Mastering ReactJs by Ryan Vice and Adam H
 
 3) Open index.html in a browser.
 
-    >You can do this by simply right clicking on the file in explorer or finder and then selecting to open the file with your favorite browser.
+    >You can do this by simply right clicking on the file in explorer or finder
+    > and then selecting to open the file with your favorite browser.
 
     This will run watchify and will rebuild dist/bundle.js anytime you change the code in app.jsx.
