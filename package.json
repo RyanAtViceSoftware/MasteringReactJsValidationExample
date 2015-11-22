@@ -13,9 +13,13 @@
     "watchify": "^3.4.0",
     "reactify": "^1.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^5.8.34",
+    "babel-loader": "^5.4.0",
+    "watchify": "^3.6.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node_modules\\.bin\\watchify -t reactify app.jsx -o dist/bundle.js -v"
   },
   "repository": {
     "type": "git",
