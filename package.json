@@ -12,6 +12,7 @@
     "react-validation-mixin": "^5.2.0"
   },
   "devDependencies": {
+    "reactify": "^1.1.1",
     "watchify": "^3.6.1"
   },
   "scripts": {
