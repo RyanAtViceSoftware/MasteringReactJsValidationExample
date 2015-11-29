@@ -56,9 +56,6 @@ var Demo = React.createClass({
   onSubmit(event) {
     event.preventDefault();
 
-    // To allow accessing this in the scope of a callback
-    var self = this;
-
     // Handle field level validations
     var onValidate = function(error) {
 
@@ -74,10 +71,10 @@ var Demo = React.createClass({
 
         // Handle form level validations
         var passwordContainsUserName
-            = self.state.password.indexOf(
-                self.state.userName) > -1;
+            = this.state.password.indexOf(
+                this.state.userName) > -1;
 
-        if (self.state.userName 
+        if (this.state.userName
             && passwordContainsUserName) {
             alert("Password cannot contain the user name.");
             return;
@@ -88,7 +85,7 @@ var Demo = React.createClass({
         }
     };
 
-    this.props.validate(onValidate);
+    this.props.validate(onValidate.bind(this));
   },
   onChange: function(event) {
     var state = {};
