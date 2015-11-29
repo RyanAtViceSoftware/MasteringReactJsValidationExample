@@ -4,9 +4,9 @@ This code is sample code from the book Mastering ReactJs by Ryan Vice and Adam H
 ### To run this code
 1) Execute from command prompt (Windows) or terminal (Mac)
 
-    ```
-    npm install
-    ```
+   ```
+   npm install
+   ```
 
 2) Execute from command prompt (Windows) or terminal (Mac)
 
