@@ -1,13 +1,14 @@
-'use strict';
-var React = require('react');
-var Joi = require('joi');
-var JoiValidationStrategy = require('joi-validation-strategy');
-var ReactValidationMixin = require('react-validation-mixin');
+"use strict";
+var React = require("react");
+var ReactDOM = require("react-dom")
+var Joi = require("joi");
+var JoiValidationStrategy = require("joi-validation-strategy");
+var ReactValidationMixin = require("react-validation-mixin");
 
 var ValidatedInput = React.createClass({
     renderHelpText: function(message) {
         return (
-            <span className='help-block'>
+            <span className="help-block">
                 {message}
             </span>
         );
@@ -25,7 +26,7 @@ var ValidatedInput = React.createClass({
 
         return (
             <div className={formClass}>
-                <label className="control-label" for={this.props.name}>
+                <label className="control-label" forHtml={this.props.name}>
                     {this.props.label}
                 </label>
                 <input className="form-control" {...this.props}/>
@@ -38,10 +39,10 @@ var ValidatedInput = React.createClass({
 var Demo = React.createClass({
   validatorTypes: {
     userName: Joi.string().required()
-        .label('User Name'),
+        .label("User Name"),
     password: Joi.string().required()
         .regex(/[a-zA-Z0-9]{3,30}/)
-        .label('Password')
+        .label("Password")
   },
   getValidatorData: function() {
     return this.state;
@@ -72,12 +73,12 @@ var Demo = React.createClass({
         }
 
         // Handle form level validations
-        var userNameContainsPassword 
+        var passwordContainsUserName
             = self.state.password.indexOf(
                 self.state.userName) > -1;
 
         if (self.state.userName 
-            && userNameContainsPassword) {
+            && passwordContainsUserName) {
             alert("Password cannot contain the user name.");
             return;
         }
@@ -99,7 +100,7 @@ var Demo = React.createClass({
   render: function() {
     return (
         <div className="container">
-            <form onSubmit={this.onSubmit.bind(this)}>
+            <form onSubmit={this.onSubmit}>
                 <ValidatedInput 
                     name="userName"
                     type="text" 
@@ -107,8 +108,8 @@ var Demo = React.createClass({
                     placeholder="Enter User Name" 
                     label="User Name"
                     value={this.state.userName}
-                    onChange={this.onChange.bind(this)}
-                    onBlur={this.props.handleValidation('userName')}
+                    onChange={this.onChange}
+                    onBlur={this.props.handleValidation("userName")}
                     getValidationMessages=
                         {this.props.getValidationMessages}/>
                 <ValidatedInput 
@@ -119,8 +120,8 @@ var Demo = React.createClass({
                     placeholder="Enter Password" 
                     label="Password"
                     value={this.state.password}
-                    onChange={this.onChange.bind(this)}
-                    onBlur={this.props.handleValidation('password')}
+                    onChange={this.onChange}
+                    onBlur={this.props.handleValidation("password")}
                     getValidationMessages=
                         {this.props.getValidationMessages}/>
                 <button className="btn btn-success" type="submit">
@@ -136,6 +137,6 @@ var Demo = React.createClass({
 var ValidationDemo 
     = ReactValidationMixin(JoiValidationStrategy)(Demo);
 
-React.render(
+ReactDOM.render(
     <ValidationDemo/>,
-    document.getElementById('view'));
+    document.getElementById("view"));
