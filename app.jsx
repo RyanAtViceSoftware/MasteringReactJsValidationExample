@@ -26,7 +26,7 @@ var ValidatedInput = React.createClass({
 
         return (
             <div className={formClass}>
-                <label className="control-label" forHtml={this.props.name}>
+                <label className="control-label" htmlFor={this.props.name}>
                     {this.props.label}
                 </label>
                 <input className="form-control" {...this.props}/>
